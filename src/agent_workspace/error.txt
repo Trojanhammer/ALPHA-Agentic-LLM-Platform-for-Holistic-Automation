@@ -1,0 +1,53 @@
+Group Chat failed: GroupChat.__init__() got an unexpected keyword argument 'max_rounds'
+Group Chat failed: GroupChat.__init__() got an unexpected keyword argument 'group_objective'
+Group Chat failed: 'NoneType' object has no attribute '_run_rag_with_reranking'
+Pipeline Error: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 869, in answer
+    moa = MixtureOfAgents(
+          ^^^^^^^^^^^^^^^^
+TypeError: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Pipeline Error: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 869, in answer
+    moa = MixtureOfAgents(
+          ^^^^^^^^^^^^^^^^
+TypeError: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Pipeline Error: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 870, in answer
+    moa = MixtureOfAgents(
+          ^^^^^^^^^^^^^^^^
+TypeError: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+LLM Wrapper Error: 404 models/gemini/gemini-2.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Pipeline Error: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 891, in answer
+    moa = MixtureOfAgents(
+          ^^^^^^^^^^^^^^^^
+TypeError: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Pipeline Error: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 890, in answer
+    moa = MixtureOfAgents(
+          ^^^^^^^^^^^^^^^^
+TypeError: MixtureOfAgents.__init__() got an unexpected keyword argument 'final_agent'
+Pipeline Error: MixtureOfAgents.__init__() got an unexpected keyword argument 'verbose'
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 880, in answer
+    moa = MixtureOfAgents(
+          ^^^^^^^^^^^^^^^^
+TypeError: MixtureOfAgents.__init__() got an unexpected keyword argument 'verbose'
+Pipeline Error: cannot access local variable 'expert_responses' where it is not associated with a value
+Traceback (most recent call last):
+  File "C:\Users\mridh\FYP\Multimodal_Swarm-Based_Multi-Agent\src\swarm_agentic_qa.py", line 935, in answer
+    "expert_responses": expert_responses,
+                        ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'expert_responses' where it is not associated with a value
+RAG error: [ONNXRuntimeError] : 1 : FAIL : bad allocation
+RAG error: [ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running DequantizeLinear node. Name:'/bert/embeddings/word_embeddings/Gather_output_0_DequantizeLinear' Status Message: bad allocation
+RAG error: [ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running FusedMatMul node. Name:'/bert/encoder/layer.0/attention/self/MatMul/MatMulScaleFusion/' Status Message: D:\a\_work\1\s\onnxruntime\core\framework\bfc_arena.cc:376 onnxruntime::BFCArena::AllocateRawInternal Failed to allocate memory for requested buffer of size 100663296
+
+RAG error: [ONNXRuntimeError] : 6 : RUNTIME_EXCEPTION : Non-zero status code returned while running FusedMatMul node. Name:'/bert/encoder/layer.0/attention/self/MatMul/MatMulScaleFusion/' Status Message: D:\a\_work\1\s\onnxruntime\core\framework\bfc_arena.cc:376 onnxruntime::BFCArena::AllocateRawInternal Failed to allocate memory for requested buffer of size 113246208
+
+Giving up send_request(...) after 4 tries (requests.exceptions.SSLError: HTTPSConnectionPool(host='us.i.posthog.com', port=443): Max retries exceeded with url: /batch/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1006)'))))
