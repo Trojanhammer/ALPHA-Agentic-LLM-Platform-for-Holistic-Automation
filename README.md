@@ -99,7 +99,7 @@ These scripts are examples, not production pipelines.
 ```
 
 ## 📁 Project Structure
-
+```
 ALPHA-Agentic-LLM-Platform-for-Holistic-Automation/
 ├── medical_dataset/          # Sample datasets (POC only) & Example domain
 ├── add_csv.py                # CSV ingestion example
@@ -108,6 +108,7 @@ ALPHA-Agentic-LLM-Platform-for-Holistic-Automation/
 ├── swarm_qa.py               # Multi-agent swarm workflow
 ├── chroma_db/                # Vector database (ignored in git)
 └── requirements.txt
+```
 
 ## 🧩 Customisation Is REQUIRED
 This blueprint does not handle:
