@@ -1,77 +1,195 @@
-# Multimodal Agentic RAG
+# ALPHA: Agentic LLM Platform Blueprint
 
-### Table of contents
-* [Overview](###Overview)
-* [Features](###Features)
-* [Installation](###Installation)
-* [Usage](###Usage)
-* [Perspectives](###Perspectives)
+**A flexible foundation for building intelligent document processing systems**
 
-### Overview
-Retrieval-Augmented Generation (RAG) is an advanced AI framework that combines the retrieval capabilities of information retrieval systems (e.g., encoders and vector databases) with the generative power of large language models (LLMs). By leveraging external knowledge sources, such as user-provided documents, RAG delivers accurate, context-aware answers and generates factual, coherent responses.
+## 🎯 Overview
+ALPHA started as a citizen service automation platform and evolved into an industry-ready blueprint. This isn't a plug-and-play solution - it's a **starting point** that you must adapt for your specific needs. The repository contains example patterns, sample data, and reference implementations that demonstrate RAG architecture.
 
-Traditional RAG systems primarily rely on static chunking and retrieval mechanisms, which may struggle to adapt dynamically to complex, multimodal data. To address this limitation, this project introduces an agentic approach to chunking and retrieval, adding significant value to the RAG process.
-
-### Features
-**- chunking (Semantic or Agentic):** \
-Semantic chunker split documents into semantically coherent, meaningful chunks. 
-Agentic chunker goes further and simulates human judgment of text segmentation: start at the beginning of a document, group sentences based on context and topic, and continue this process iteratively until the entire document is segmented. \
-(For more info: [Agentic Chunking: Enhancing RAG Answers for Completeness and Accuracy](https://gleen.ai/blog/agentic-chunking-enhancing-rag-answers-for-completeness-and-accuracy/)).\
-**- Image and table detection:** \
-Detecting images and tables using PyMuPDF and img2table respectively.\
-**- Summarizing images and tables:** \
-Using a multimodal LLM (eg. gemini-1.5-flash), create a text description of each image and table.\
-**- Embedding:** \
-Embed chunks, images and tables summaries using "text-embedding-004" model.\
-**- Retrieval (Semantic or Agentic):** \
-For a given query: semantic retrieval focuses on embedding-based similarity searches to retrieve information. Agentic retrieval includes 4 steps, following ReAct process: \
-(1). Query rephrasing, with regards to chat history \
-(2). semantic retrieval \
-(3). Assess whether the retrieved documents are relevant and sufficient to answer the query \
-(4). Accordingly, either use the retrieved documents or web search engine to generate a relevant, sufficient and factual answer.  
-
-### Installation
-To run the app locally, the following steps are necessary:
-- Clone The repo:
+## 🚀 Quick Start
 ```bash
-git clone https://github.com/AhmedAl93/multimodal-agentic-RAG.git
-cd multimodal-agentic-RAG/
-```
-- Install the required python packages:
-```bash
+# 1. Clone and setup
+git clone https://github.com/Trojanhammer/ALPHA-Agentic-LLM-Platform-for-Holistic-Automation.git
+cd ALPHA-Agentic-LLM-Platform-for-Holistic-Automation
+
+# 2. Install dependencies
 pip install -r requirements.txt
-```
-- Set up the environment variables in the .env file:
-```bash
-LLAMA_CLOUD_API_KEY=<Your LLAMACLOUD API KEY>
-GOOGLE_API_KEY=<Your Google API KEY>
-TAVILY_API_KEY=<Your Tavily API KEY>
-```
 
-### Usage
-1. Process input document(s):
+# 3. Configure environment
+cp .env.example .env
+# Edit .env and add your API keys (Google, OpenAI, etc.)
 
-Run the following command:
-```bash
-python main.py --InputPath <path> --parser_name <parser> --chunking_strategy <chunking> --retrieval_strategy <retrieval>
-```
-Here are more details about the inputs:
-```bash
---InputPath: 'Directory path containing files to be processed, or a single file path'
---parser_name: 'Specify the name of the parser to use for document processing. Possible values: ["LlamaParse", "pymupdf4llm"]'
---chunking_strategy: 'Define the chunking strategy to apply when processing documents. Possible values: ["semantic", "agentic"]'
---retrieval_strategy: 'Specify the retrieval strategy for querying indexed documents. Possible values:["semantic", "agentic"]'
-```
-Currently, only PDF files are supported. So if the input directory contains x PDFs, x files will be processed.
+# 4. IMPORTANT: ChromaDB is empty!
+# You need to ingest data first using the example scripts
+python add_csv.py --file data/medical_dataset/medquad.csv
 
-2. Provide queries:
-In the terminal, you can provide multiple queries and get relevant answers.
+# Or modify/create your own ingestion script
+📁 Project Structure
+text
+├── data/                    # Sample datasets for reference
+│   └── medical/            # Medical domain example
+│       └── medquad.csv     # Small sample dataset (included)
+├── add_csv.py              # Example: CSV ingestion
+├── add_pdfs.py             # Example: PDF ingestion  
+├── add_books.py            # Example: Book data ingestion
+├── chroma_db/              # Vector database (EMPTY - you fill it)
+├── .gitignore              # Ignores large files/chroma_db
+└── requirements.txt        # Python dependencies
+⚠️ Critical Notes
+This is not production-ready code! You must:
 
-### Perspectives
-In the near future, I plan to work on the following features:
-- Support other file types than PDF
-- Performance Evaluation for different chunking and retrieval strategies
-- Support open-source LLMs
-- Support other Vector DBs providers
-- Assess and test new concepts: GraphRAG, ... 
-- Cloud deployment
+Ingest your own data - chroma_db starts empty
+
+Modify all scripts - they're examples, not solutions
+
+Build your own workflow - there's no main.py or ready-to-run system
+
+Adapt for your domain - chunking, parsing, embedding all need customization
+
+🔧 How to Use This Blueprint
+Step 1: Understand the Patterns
+Study the example scripts to understand:
+
+How documents are loaded and parsed
+
+Different chunking strategies
+
+Embedding generation and storage
+
+ChromaDB integration patterns
+
+Step 2: Choose Your Starting Point
+Pick the script closest to your data type:
+
+add_csv.py for structured data
+
+
+add_books.py for text-heavy content
+
+Step 3: Customize Everything
+Modify for your specific needs:
+
+python
+# Example modifications you'll need:
+# - Adjust chunk sizes for your content
+# - Change embedding models for your domain
+# - Add metadata extraction for your use case
+# - Implement error handling for your scale
+# - Add logging and monitoring
+Step 4: Test and Iterate
+Run your modified script with sample data
+
+Check chroma_db population
+
+Test query performance
+
+Refine based on results
+
+🎯 Original & Extended Use Cases
+Originally Built For:
+Citizen service portals - automating government inquiries
+
+Public information systems - making documents searchable
+
+Community knowledge bases - local service directories
+
+Extended For Industry:
+Healthcare - medical record processing (see medical_dataset/ folder)
+
+Legal - contract and case law analysis
+
+Enterprise - internal documentation and SOP management
+
+💡 Key Design Decisions
+What's Included:
+Minimal working examples of RAG patterns
+
+Sample dataset (medquad.csv) for testing
+
+Basic ChromaDB integration
+
+Environment configuration template
+
+What's Removed:
+Image/table detection (simplified focus)
+
+Main entry point (you build your own)
+
+Production-ready error handling
+
+Advanced optimization features
+
+What You Must Add:
+Domain-specific chunking logic
+
+Custom metadata schemas
+
+Security and access controls
+
+Monitoring and logging
+
+❓ Questions to Guide Your Implementation
+About Your Data:
+What formats will you process? (PDF, DOCX, CSV, etc.)
+
+How large are typical documents?
+
+What domain-specific terminology exists?
+
+
+About Your Users:
+What questions will they ask?
+
+What context do they need?
+
+How technical are your users?
+
+What interfaces will they use?
+
+About Your System:
+What performance requirements exist?
+
+How will you handle updates to documents?
+
+What security considerations are needed?
+
+How will you monitor and maintain the system?
+
+🔄 Development Workflow Example
+bash
+# 1. Start with an example
+cp add_csv.py my_data_ingestion.py
+
+# 2. Modify for your needs
+# - Change chunking parameters
+# - Add custom preprocessing
+# - Implement domain-specific logic
+
+# 3. Test with your data
+python my_data_ingestion.py --input your_data_folder/
+
+# 4. Build query interface
+# Create your own query.py or API based on your needs
+
+# 5. Deploy and iterate
+# Add monitoring, scaling, user feedback loops
+🆘 Getting Help
+Since this is a blueprint, there's no "official support." Instead:
+
+Read the code - examples are intentionally simple and commented
+
+Experiment - try different chunking/embedding approaches
+
+Search online - common RAG patterns are well-documented
+
+Adapt - your solution will be unique to your needs
+
+📚 Resources
+ChromaDB Documentation: https://docs.trychroma.com/docs/overview/introduction
+
+LangChain RAG Guides: https://docs.langchain.com/oss/python/langchain/rag
+
+Embedding Models Comparison
+
+RAG Best Practices : https://www.pinecone.io/learn/retrieval-augmented-generation/
+
+Remember: This repository shows you how to build, not what to build. Your implementation will be unique. Start with the examples, understand the patterns, then create your own solution.

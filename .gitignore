@@ -48,3 +48,7 @@ main.py
 logs/
 retrieval_logs/
 
+# Ignore everything in medical folder except medquad.csv
+medical_dataset/*
+!medical_dataset/medquad.csv
+

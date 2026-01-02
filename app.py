@@ -1,9 +1,4 @@
-# ====================================================================
-# APP.PY — CLEAN + FINAL VERSION
-# New Swarm: MixtureOfAgentsQA (swarm_test.py)
-# Document Swarm: swarm2.py (Scenario 3)
-# Unified history (Option A)
-# ====================================================================
+
 
 from flask import Flask, request, render_template, session, redirect, url_for
 from flask_session import Session
