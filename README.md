@@ -1,195 +1,183 @@
 # ALPHA: Agentic LLM Platform Blueprint
 
-**A flexible foundation for building intelligent document processing systems**
+**A modular blueprint for building agentic RAG systems — from single-agent ReAct to multi-agent swarm workflows**
 
 ## 🎯 Overview
-ALPHA started as a citizen service automation platform and evolved into an industry-ready blueprint. This isn't a plug-and-play solution - it's a **starting point** that you must adapt for your specific needs. The repository contains example patterns, sample data, and reference implementations that demonstrate RAG architecture.
+
+ALPHA is a baseline agentic RAG architecture designed to be adapted for:
+
+- 🧑‍🤝‍🧑 **Citizen-facing systems** (public Q&A, knowledge access)
+- 🏢 **Organisational systems** (enterprise, healthcare, legal, internal docs)
+
+**This repository is not a finished product.**  
+It is a starting point that demonstrates design patterns, not a production system.
+
+> **Rule of thumb:**  
+> If your use case is simple → use a single agent  
+> If your task requires diverse reasoning → use a multi-agent swarm
+
+---
+
+## 🧠 Agent Design Choices (IMPORTANT)
+
+ALPHA supports two agentic workflows. You must choose and modify based on your industry needs.
+
+### 🔹 Option 1: Single-Agent with ReAct (Recommended Baseline)
+
+**Use when:**
+- One agent is sufficient to reason + retrieve
+- Tasks are straightforward
+- You want lower cost & complexity
+
+**File to modify:** `doc_qa.py`
+
+**Characteristics:**
+- One agent
+- ReAct-style reasoning
+- Deterministic and easier to control
+
+**Suitable for:**
+- Citizen services
+- FAQ systems
+- Internal documentation bots
+
+### 🔹 Option 2: Multi-Agent Swarm (Diverse Reasoning)
+
+**Use when:**
+- A single agent is not enough
+- You need multiple perspectives to solve one task
+- The domain is complex or high-stakes
+
+**File to modify:** `swarm_qa.py`
+
+**Characteristics:**
+- Multiple expert agents
+- Parallel execution
+- Aggregation / summarization agent
+
+**Suitable for:**
+- Medical reasoning
+- Legal analysis
+- Policy interpretation
+- Research-heavy workflows
+
+> ⚠️ **Multi-agent ≠ always better**  
+> It increases cost, latency, and complexity.
+
+---
 
 ## 🚀 Quick Start
+
 ```bash
-# 1. Clone and setup
+# 1. Clone repository
 git clone https://github.com/Trojanhammer/ALPHA-Agentic-LLM-Platform-for-Holistic-Automation.git
 cd ALPHA-Agentic-LLM-Platform-for-Holistic-Automation
 
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Configure environment
+# 3. Setup environment
 cp .env.example .env
-# Edit .env and add your API keys (Google, OpenAI, etc.)
+# Edit .env and add your API keys
 
-# 4. IMPORTANT: ChromaDB is empty!
-# You need to ingest data first using the example scripts
+```
+## 📦 Data Ingestion (MANDATORY)
+
+⚠️ ChromaDB is empty by default  
+You must ingest your own data.
+
+**Example:**
+```bash
 python add_csv.py --file data/medical_dataset/medquad.csv
+Available ingestion examples:
 
-# Or modify/create your own ingestion script
-📁 Project Structure
-text
-├── data/                    # Sample datasets for reference
-│   └── medical/            # Medical domain example
-│       └── medquad.csv     # Small sample dataset (included)
-├── add_csv.py              # Example: CSV ingestion
-├── add_pdfs.py             # Example: PDF ingestion  
-├── add_books.py            # Example: Book data ingestion
-├── chroma_db/              # Vector database (EMPTY - you fill it)
-├── .gitignore              # Ignores large files/chroma_db
-└── requirements.txt        # Python dependencies
-⚠️ Critical Notes
-This is not production-ready code! You must:
+add_csv.py → structured data
 
-Ingest your own data - chroma_db starts empty
+add_books.py → long-form text
 
-Modify all scripts - they're examples, not solutions
+These scripts are examples, not production pipelines.
+```
 
-Build your own workflow - there's no main.py or ready-to-run system
+## 📁 Project Structure
 
-Adapt for your domain - chunking, parsing, embedding all need customization
+ALPHA-Agentic-LLM-Platform-for-Holistic-Automation/
+├── medical_dataset/          # Sample datasets (POC only) & Example domain
+├── add_csv.py                # CSV ingestion example
+├── add_books.py              # Text ingestion example
+├── doc_qa.py                 # Single-agent ReAct workflow
+├── swarm_qa.py               # Multi-agent swarm workflow
+├── chroma_db/                # Vector database (ignored in git)
+└── requirements.txt
 
-🔧 How to Use This Blueprint
-Step 1: Understand the Patterns
-Study the example scripts to understand:
+## 🧩 Customisation Is REQUIRED
+This blueprint does not handle:
 
-How documents are loaded and parsed
+* Images, tables, or diagrams
 
-Different chunking strategies
+* OCR
 
-Embedding generation and storage
+* Vision-language reasoning
 
-ChromaDB integration patterns
+* Security or access control
 
-Step 2: Choose Your Starting Point
-Pick the script closest to your data type:
+Example:  
+If your organisation ingests PDFs with charts, scanned images, or medical diagrams → you must add:
 
-add_csv.py for structured data
+* OCR (e.g., Tesseract)
 
+* Vision models (e.g., Gemini Vision)
 
-add_books.py for text-heavy content
+* Multimodal chunking logic
 
-Step 3: Customize Everything
-Modify for your specific needs:
+## 🏗️ Intended Use Cases
+Originally Designed For:
 
-python
-# Example modifications you'll need:
-# - Adjust chunk sizes for your content
-# - Change embedding models for your domain
-# - Add metadata extraction for your use case
-# - Implement error handling for your scale
-# - Add logging and monitoring
-Step 4: Test and Iterate
-Run your modified script with sample data
+* Citizen service automation
 
-Check chroma_db population
+* Public knowledge access
 
-Test query performance
-
-Refine based on results
-
-🎯 Original & Extended Use Cases
-Originally Built For:
-Citizen service portals - automating government inquiries
-
-Public information systems - making documents searchable
-
-Community knowledge bases - local service directories
+* Community information systems
 
 Extended For Industry:
-Healthcare - medical record processing (see medical_dataset/ folder)
 
-Legal - contract and case law analysis
+* Healthcare (clinical Q&A)
 
-Enterprise - internal documentation and SOP management
+* Legal (case & contract analysis)
 
-💡 Key Design Decisions
-What's Included:
-Minimal working examples of RAG patterns
+* Enterprise (SOPs, internal docs)
 
-Sample dataset (medquad.csv) for testing
+## ⚠️ Critical Notes
+What's NOT included:
 
-Basic ChromaDB integration
+* ❌ Not production-ready
 
-Environment configuration template
+* ❌ No main entry point
 
-What's Removed:
-Image/table detection (simplified focus)
+* ❌ No deployment pipeline
 
-Main entry point (you build your own)
+* ❌ No monitoring or logging
 
-Production-ready error handling
+You must build:
 
-Advanced optimization features
+* Your own API
 
-What You Must Add:
-Domain-specific chunking logic
+* Security layers
 
-Custom metadata schemas
+* Domain-specific logic
 
-Security and access controls
+## 🎓 Academic Note (Final Year Project)
+This repository is used as a proof-of-concept (POC) for a Final Year Project (FYP).
 
-Monitoring and logging
+Public datasets are used for validation
 
-❓ Questions to Guide Your Implementation
-About Your Data:
-What formats will you process? (PDF, DOCX, CSV, etc.)
+Architecture is research-driven
 
-How large are typical documents?
+Domains are examples, not limitations
 
-What domain-specific terminology exists?
+The goal is to demonstrate agentic system design, not domain ownership.
 
+## 🧠 Key Takeaway
+ALPHA shows how to build agentic RAG systems, not what system to deploy.
 
-About Your Users:
-What questions will they ask?
-
-What context do they need?
-
-How technical are your users?
-
-What interfaces will they use?
-
-About Your System:
-What performance requirements exist?
-
-How will you handle updates to documents?
-
-What security considerations are needed?
-
-How will you monitor and maintain the system?
-
-🔄 Development Workflow Example
-bash
-# 1. Start with an example
-cp add_csv.py my_data_ingestion.py
-
-# 2. Modify for your needs
-# - Change chunking parameters
-# - Add custom preprocessing
-# - Implement domain-specific logic
-
-# 3. Test with your data
-python my_data_ingestion.py --input your_data_folder/
-
-# 4. Build query interface
-# Create your own query.py or API based on your needs
-
-# 5. Deploy and iterate
-# Add monitoring, scaling, user feedback loops
-🆘 Getting Help
-Since this is a blueprint, there's no "official support." Instead:
-
-Read the code - examples are intentionally simple and commented
-
-Experiment - try different chunking/embedding approaches
-
-Search online - common RAG patterns are well-documented
-
-Adapt - your solution will be unique to your needs
-
-📚 Resources
-ChromaDB Documentation: https://docs.trychroma.com/docs/overview/introduction
-
-LangChain RAG Guides: https://docs.langchain.com/oss/python/langchain/rag
-
-Embedding Models Comparison
-
-RAG Best Practices : https://www.pinecone.io/learn/retrieval-augmented-generation/
-
-Remember: This repository shows you how to build, not what to build. Your implementation will be unique. Start with the examples, understand the patterns, then create your own solution.
+> Start simple.
+> Add complexity only when the task demands it.
